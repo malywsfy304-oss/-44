@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشروع الكيمياء - تفاعل كربونات الصوديوم مع حمض الهيدروكلوريك</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #1a2a6c, #2c3e50);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .teacher-tribute {
+            background: linear-gradient(90deg, #fdbb2d, #b21f1f);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        
+        .experiment-section {
+            flex: 2;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .theory-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 15px;
+            margin: 10px;
+        }
+        
+        .experiment-container {
+            position: relative;
+            width: 100%;
+            background: #e8f4f8;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .lab-setup {
+            width: 100%;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="%23d1e8ff"/></svg>');
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .flask {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px 10px 40px 40px;
+            border: 3px solid #95a5a6;
+            overflow: hidden;
+        }
+        
+        .liquid {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: #3498db;
+            transition: height 1.5s ease;
+        }
+        
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: 0;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: bubbleRise linear;
+        }
+        
+        @keyframes bubbleRise {
+            0% { transform: translateY(0); opacity: 0.8; }
+            100% { transform: translateY(-150px); opacity: 0; }
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #1a2a6c, #2c3e50);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        .reset-btn {
+            background: linear-gradient(90deg, #b21f1f, #fdbb2d);
+        }
+        
+        h2 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        .steps {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background: #1a2a6c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+        
+        .chemical-equation {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .qrcode-section {
+            text-align: center;
+            padding: 20px;
+            background: #f1f1f1;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        #qrcode {
+            display: inline-block;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .thanks {
+            background: linear-gradient(90deg, #fdbb2d, #b21f1f);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .thanks h2 {
+            color: white;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .lab-setup {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>مشروع الكيمياء</h1>
+            <p class="subtitle">تفاعل كربونات الصوديوم مع حمض الهيدروكلوريك</p>
+            <div class="teacher-tribute">
+                <h3>تقديرًا لجهود المعلم الفاضل: يحيى أحمد مدخلي</h3>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <section class="experiment-section">
+                <div class="experiment-container">
+                    <h2>محاكاة التجربة</h2>
+                    
+                    <div class="lab-setup">
+                        <div class="flask">
+                            <div class="liquid" id="liquid" style="height: 0%;"></div>
+                            <div class="bubbles" id="bubbles"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button onclick="addSodiumCarbonate()">
+                            <i class="fas fa-flask"></i> إضافة كربونات الصوديوم
+                        </button>
+                        
+                        <button onclick="addHydrochloricAcid()">
+                            <i class="fas fa-tint"></i> إضافة حمض الهيدروكلوريك
+                        </button>
+                        
+                        <button class="reset-btn" onclick="resetExperiment()">
+                            <i class="fas fa-redo"></i> إعادة التجربة
+                        </button>
+                    </div>
+                    
+                    <div class="chemical-equation">
+                        Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂↑
+                    </div>
+                </div>
+                
+                <div class="steps">
+                    <h2>خطوات التجربة</h2>
+                    
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <p>نضع كمية قليلة من كربونات الصوديوم في دورق مخبري</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <p>نضيف حمض الهيدروكلوريك تدريجيًا إلى الدورق</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <p>نلاحظ فوران المحلول نتيجة تصاعد غاز ثاني أكسيد الكربون</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <p>نقرب عود ثقاب مشتعل من فوهة الدورق لاختبار وجود غاز ثاني أكسيد الكربون</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <p>نسجل الملاحظات والنتائج</p>
+                    </div>
+                </div>
+                
+                <div class="qrcode-section">
+                    <h2>باركود المشروع</h2>
+                    <p>امسح الباركود لمعرفة المزيد عن المشروع</p>
+                    <div id="qrcode"></div>
+                </div>
+            </section>
+            
+            <section class="theory-section">
+                <h2>التفسير العلمي</h2>
+                
+                <p>يتفاعل حمض الهيدروكلوريك (HCl) مع كربونات الصوديوم (Na₂CO₃) في تفاعل إحلال مزدوج producing sodium chloride (table salt), water, and carbon dioxide gas.</p>
+                
+                <p>يعتبر هذا التفاعل مثالًا على تفاعل الحمض مع القاعدة حيث تكون كربونات الصوديوم قاعدة تتفاعل مع الحمض.</p>
+                
+                <p>يعتبر غاز ثاني أكسيد الكربون الناتج من التفاعل غير قابل للاشتعال ويُستخدم هذا التفاعل في العديد من التطبيقات العملية including fire extinguishers and baking.</p>
+                
+                <h2>الملاحظات</h2>
+                
+                <p>• نلاحظ فوران شديد عند إضافة الحمض إلى كربونات الصوديوم</p>
+                <p>• يتصاعد غاز ثاني أكسيد الكربون الذي يعكر ماء الجير</p>
+                <p>• ينتج عن التفاعل محلول مائي من كلوريد الصوديوم (ملح الطعام)</p>
+                
+                <h2>التطبيقات العملية</h2>
+                
+                <p>يستخدم هذا التفاعل في:</p>
+                <p>• طفايات الحريق</p>
+                <p>• صناعة المخبوزات</p>
+                <p>• تحضير بعض الأملاح</p>
+                <p>• تنظيف الأسطح من الترسبات الكلسية</p>
+            </section>
+        </div>
+        
+        <div class="thanks">
+            <h2>كلمة شكر وتقدير</h2>
+            <p>نتقدم بالشكر الجزيل للمعلم الفاضل <strong>يحيى أحمد مدخلي</strong> على جهوده المتميزة في تدريس مادة الكيمياء، وعلى توجيهاته القيمة التي ساعدتنا في إتمام هذا المشروع.</p>
+            <p>فقد كان لأساليبه التعليمية المبتكرة وتشجيعه الدائم للأثر الكبير في تنمية حب العلم والتعلم لدينا، فجزاه الله عنا خير الجزاء.</p>
+        </div>
+        
+        <footer>
+            <p>مشروع الكيمياء - تفاعل كربونات الصوديوم مع حمض الهيدروكلوريك</p>
+            <p>تم تنفيذ هذا المشروع بإشراف المعلم: يحيى أحمد مدخلي</p>
+            <p>© 2023 - جميع الحقوق محفوظة</p>
+        </footer>
+    </div>
+
+    <script>
+        // إنشاء الباركود
+        document.addEventListener('DOMContentLoaded', function() {
+            const qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: "مشروع الكيمياء - تفاعل كربونات الصوديوم مع حمض الهيدروكلوريك - تحت إشراف المعلم يحيى أحمد مدخلي",
+                width: 150,
+                height: 150,
+                colorDark : "#1a2a6c",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        
+        // متغيرات التجربة
+        let sodiumAdded = false;
+        let acidAdded = false;
+        
+        // إضافة كربونات الصوديوم
+        function addSodiumCarbonate() {
+            if (!sodiumAdded) {
+                document.getElementById('liquid').style.height = '30%';
+                document.getElementById('liquid').style.backgroundColor = '#f0f0f0';
+                sodiumAdded = true;
+                showMessage('تم إضافة كربونات الصوديوم. الآن أضف حمض الهيدروكلوريك!');
+            } else {
+                showMessage('لقد أضفت كربونات الصوديوم بالفعل!');
+            }
+        }
+        
+        // إضافة حمض الهيدروكلوريك
+        function addHydrochloricAcid() {
+            if (!sodiumAdded) {
+                showMessage('يجب إضافة كربونات الصوديوم أولاً!');
+                return;
+            }
+            
+            if (!acidAdded) {
+                document.getElementById('liquid').style.backgroundColor = '#a8e6cf';
+                acidAdded = true;
+                showMessage('يضاف حمض الهيدروكلوريك... شاهد التفاعل!');
+                
+                // بدء ظهور الفقاعات
+                startBubbles();
+                
+                // تغيير اللون تدريجيًا
+                setTimeout(() => {
+                    document.getElementById('liquid').style.backgroundColor = '#dcedc1';
+                }, 2000);
+            } else {
+                showMessage('لقد أضفت الحمض بالفعل!');
+            }
+        }
+        
+        // بدء ظهور الفقاعات
+        function startBubbles() {
+            const bubblesContainer = document.getElementById('bubbles');
+            bubblesContainer.innerHTML = '';
+            
+            // إنشاء فقاعات متعددة
+            for (let i = 0; i < 20; i++) {
+                createBubble(bubblesContainer);
+            }
+            
+            // استمرار إضافة الفقاعات
+            const bubbleInterval = setInterval(() => {
+                createBubble(bubblesContainer);
+            }, 300);
+            
+            // إيقاف الفقاعات بعد فترة
+            setTimeout(() => {
+                clearInterval(bubbleInterval);
+            }, 5000);
+        }
+        
+        // إنشاء فقاعة فردية
+        function createBubble(container) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            // حجم عشوائي
+            const size = Math.random() * 10 + 5;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            
+            // موقع عشوائي
+            const left = Math.random() * 90 + 5;
+            bubble.style.left = `${left}%`;
+            
+            // مدة动画 عشوائية
+            const duration = Math.random() * 2 + 1;
+            bubble.style.animation = `bubbleRise ${duration}s linear forwards`;
+            
+            container.appendChild(bubble);
+            
+            // إزالة الفقاعة بعد انتهاء الرسوم المتحركة
+            setTimeout(() => {
+                if (bubble.parentNode) {
+                    bubble.parentNode.removeChild(bubble);
+                }
+            }, duration * 1000);
+        }
+        
+        // إعادة ضبط التجربة
+        function resetExperiment() {
+            document.getElementById('liquid').style.height = '0%';
+            document.getElementById('bubbles').innerHTML = '';
+            sodiumAdded = false;
+            acidAdded = false;
+            showMessage('تم إعادة ضبط التجربة. ابدأ من جديد!');
+        }
+        
+        // عرض الرسائل
+        function showMessage(msg) {
+            // يمكن تطوير هذه الدالة لإظهار رسائل للمستخدم
+            console.log(msg);
+        }
+    </script>
+</body>
+</html>
